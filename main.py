@@ -32,7 +32,7 @@ class NewSpider(scrapy.Spider):
         name = "new_spider"
         start_urls = ['http://192.168.1.1/sets/1']
 #2.2- Display reference webpage
-class NewSpider(scrapy.Sipder):
+class NewSpider(scrapy.Spider):
         name = "new_spider"
         start_urls = ['http://192.168.1.1/index.html']
         def parse(self, respond):
