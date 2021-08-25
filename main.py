@@ -41,6 +41,10 @@ class NewSpider(scrapy.Spider):
                     'Image Link':x.xpath(newsel).extract_first(),
                 }
 #2.3-Store retrieve info in JSON
+
+import json
+
+a = {
 class NewSpider(scrapy.Spider):
     name = "new_spider"
     start_urls = ['https://brickset.com/sets/year-1998']
@@ -59,6 +63,11 @@ class NewSpider(scrapy.Spider):
                         response.urljoin(next_page),
                         callback=self.parse
                     )
+}
+
+b = json.dumps(a)
+print(b)
+
 #3.1-recursively extract JPG images on all known links
 from tqdm import tqdm
 from bs4 import BeautifulSoup as bs
