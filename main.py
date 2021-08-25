@@ -2,9 +2,8 @@
 
 #1.1-perform "get" request on web
 import requests
-url = 'http://www.ite.edu.sg'
+url = 'https://brickset.com/sets/year-1998'
 r = requests.get(url)
-print(r.text) #no need?
 #1.2-display "OK"
 print("Status code:")
 print("\t*",r.status_code)
@@ -19,22 +18,21 @@ print("**********")
 headers = {
     'User-Agent' : 'Mobile'
 }
-url2= 'http://httpbin.org/headers'
-rh = requests.get(url2,headers=headers)
-print(rh.text)
+#url2= 'http://httpbin.org/headers'
+#rh = requests.get(url2,headers=headers)
+#print(rh.text)
 
 #2-mapping lab 10c
 
 #2.1-Scrapy web-crawler with appropriate parser "response.css"
-#do something beforehand
 import scrapy
 class NewSpider(scrapy.Spider):
         name = "new_spider"
-        start_urls = ['http://192.168.1.1/sets/1']
+        start_urls = ['https://brickset.com/sets/year-1998']
 #2.2- Display reference webpage
 class NewSpider(scrapy.Spider):
         name = "new_spider"
-        start_urls = ['http://192.168.1.1/index.html']
+        start_urls = ['https://brickset.com/sets/year-1998']
         def parse(self, respond):
             css_selector = 'img'
             for x in response.css(css_selector):
@@ -45,7 +43,7 @@ class NewSpider(scrapy.Spider):
 #2.3-Store retrieve info in JSON
 class NewSpider(scrapy.Spider):
     name = "new_spider"
-    start_urls = ['http://192.168.1.1/index.html']
+    start_urls = ['https://brickset.com/sets/year-1998']
     def parse(self, response):
         xpath_selector = '//img'
         for x in response.xpath(xpath_selector):
@@ -62,7 +60,8 @@ class NewSpider(scrapy.Spider):
                         callback=self.parse
                     )
 #3.1-recursively extract JPG images on all known links
-from z import Pictures
+from tqdm import tqdm
+from bs4 import BeautifulSoup as bs
 import urllib.request
 import re
 
@@ -71,7 +70,7 @@ link = input()
 
 url = urllib.request.urlopen(link)
 content = url.read()
-imgs = Pictures(content)
+imgs = bs(content)
 links = [a['href'] for a in imgs.final_all('a',href=re.compile('http.*\.jpg'))]
 
 #3.2-display list of img links
