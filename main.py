@@ -1,4 +1,4 @@
-#1-reconnaissance lab 10b
+#1-reconnaissance lab 10b (done. only extra 2 url if want)
 
 #1.1-perform "get" request on web
 import requests
@@ -54,9 +54,16 @@ response = urllib.request.urlopen(url)
 data = json.loads(response.read())
 print(data)
 
-#3-test case with apprioriate test funcions.
+#3-test case with apprioriate test funcions. (havent test fully)
+import unittest
 
+class TestImage(unittest.TestCase):
 
+    def test_pic(self):
+        self.assertEqual(img_volume(jpg), png)
+        self.assertEqual(img_volume(png).gif)
 
+    if __name__ == '__main__':
+        unittest.main()
 
 
