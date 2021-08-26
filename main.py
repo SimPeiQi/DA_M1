@@ -54,25 +54,7 @@ response = urllib.request.urlopen(url)
 data = json.loads(response.read())
 print(data)
 
-#3.1-recursively extract JPG images on all known links
-from tqdm import tqdm
-from bs4 import BeautifulSoup as bs
-import urllib.request
-import re
-
-print("Input link: ")
-link = input()
-
-url = urllib.request.urlopen(link)
-content = url.read()
-imgs = bs(content)
-links = [a['href'] for a in imgs.final_all('a',href=re.compile('http.*\.jpg'))]
-
-#3.2-display list of img links
-print(len(links))
-print("\n".join(links))
-
-#4-test case with apprioriate test funcions.
+#3-test case with apprioriate test funcions.
 
 
 
