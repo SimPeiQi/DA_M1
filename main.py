@@ -28,65 +28,31 @@ print(rh.text)
 import scrapy
 class NewSpider(scrapy.Spider):
         name = "new_spider"
-        start_urls = ['https://brickset.com/sets/year-1998']
-#2.2- Display reference webpage
-class NewSpider(scrapy.Spider):
-        name = "new_spider"
-        start_urls = ['https://brickset.com/sets/year-1998']
+        start_urls = ['http://192.168.1.1/index.html']
         def parse(self, response):
-            css_selector = 'img'
-            for x in response.css(css_selector):
+            xpath_selector = '//img'
+            for x in response.xpath(xpath_selector):
                 newsel = '@src'
                 yield {
-                    'Image Link':x.xpath(newsel).extract_first(),
-                }
-                
-# havent indent . class NewSpider(scrapy.Spider):
-name = "new_spider"
-start_urls = ['http://192.168.1.1/index.html']
-def parse(self, response):
-xpath_selector = '//img'
-for x in response.xpath(xpath_selector):
-newsel = '@src'
-yield {
-'Image Link': x.xpath(newsel).extract_first(),
-}
-# To recurse next page
- Page_selector = '.next a ::attr(href)'
-next_page = response.css(Page_selector).extract_first()
-if next_page:
-yield scrapy.Request(
-response.urljoin(next_page),
-callback=self.parse
-)
-
-#2.3-Store retrieve info in JSON
-
-import json
-
-a = {
-class NewSpider(scrapy.Spider):
-    name = "new_spider"
-    start_urls = ['https://brickset.com/sets/year-1998']
-    def parse(self, response):
-        xpath_selector = '//img'
-        for x in response.xpath(xpath_selector):
-            newsel = '@src'
-            yield {
                     'Image Link': x.xpath(newsel).extract_first(),
-            }
+                }
 
-            Page_selector = '.next a ::attr(href'
+# To recurse next page
+            Page_selector = '.next a ::attr(href)'
             next_page = response.css(Page_selector).extract_first()
             if next_page:
-                    yield scrapy.Request(
+                yield scrapy.Request(
                         response.urljoin(next_page),
                         callback=self.parse
-                    )
-}
+                )
 
-b = json.dumps(a)
-print(b)
+#2.3-Store retrieve info in JSON
+import urllib, json
+
+url = "put url here"
+response = urllib.request.urlopen(url)
+data = json.loads(response.read())
+print(data)
 
 #3.1-recursively extract JPG images on all known links
 from tqdm import tqdm
